@@ -8,7 +8,3 @@ data class PaginationInfo(
     @SerializedName("next") val next: String?,
     @SerializedName("prev") val prev:String?
 )
-
-open class BasePaginationResponse(
-    @SerializedName("info") val info:PaginationInfo
-)

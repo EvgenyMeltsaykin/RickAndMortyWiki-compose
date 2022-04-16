@@ -6,7 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import wiki.rickandmorty.cf_network.HttpClient
-import wiki.rickandmorty.i_characters.data.CharacterInfoResponse
 import wiki.rickandmorty.i_characters.data.CharactersResponse
 
 interface CharactersApiService {

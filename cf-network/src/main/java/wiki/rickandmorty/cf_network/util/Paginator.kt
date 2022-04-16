@@ -1,4 +1,4 @@
-package wiki.rickandmorty.util
+package wiki.rickandmorty.cf_network.util
 
 interface Paginator<Key, Item> {
     suspend fun loadNextItems()
