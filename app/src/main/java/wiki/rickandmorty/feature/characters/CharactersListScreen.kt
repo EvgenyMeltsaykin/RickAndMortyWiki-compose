@@ -13,15 +13,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.github.terrakok.modo.forward
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.getViewModel
 import wiki.rickandmorty.core.base.BaseScreen
 import wiki.rickandmorty.core.base.EventScreen
 import wiki.rickandmorty.core.base.ViewStateScreen
-import wiki.rickandmorty.data.CharacterDto
 import wiki.rickandmorty.core.extensions.isScrolledToTheEnd
+import wiki.rickandmorty.data.CharacterDto
 import wiki.rickandmorty.feature.characters.columnItem.CharacterItem
-
+import wiki.rickandmorty.navigation.Screens
 
 @Parcelize
 class CharactersListScreen : BaseScreen<
@@ -37,15 +38,13 @@ class CharactersListScreen : BaseScreen<
     ) : ViewStateScreen
 
     sealed class ScreenEvent : EventScreen {
-        data class NavigateToDetailCharacter(val id: String) : ScreenEvent()
+        data class NavigateToDetailCharacter(val id: Int) : ScreenEvent()
     }
 
-    override suspend fun bindEventsFromScreen(viewModel: CharactersListViewModel) {
-        viewModel.eventFlow.collect { event ->
-            when (event) {
-                is ScreenEvent.NavigateToDetailCharacter -> {
-
-                }
+    override fun bindEvents(event: ScreenEvent) {
+        when (event) {
+            is ScreenEvent.NavigateToDetailCharacter -> {
+                router.forward(Screens.DetailCharacter(event.id))
             }
         }
     }
@@ -80,11 +79,7 @@ class CharactersListScreen : BaseScreen<
                     CharacterItem(
                         character = character,
                         modifier = Modifier
-                            .clickable(
-                                onClick = {
-                                    viewModel.showSnackBar("test")
-                                }
-                            )
+                            .clickable(onClick = { viewModel.onCharacterClick(character) })
                     )
                     if (index < viewState.characters.lastIndex) {
                         Divider(
@@ -113,4 +108,5 @@ class CharactersListScreen : BaseScreen<
             }
         }
     }
+
 }

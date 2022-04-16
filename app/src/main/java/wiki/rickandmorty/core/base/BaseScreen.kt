@@ -13,6 +13,13 @@ import wiki.rickandmorty.RickAndMortyWikiApp
 import wiki.rickandmorty.core.extensions.getActivity
 import wiki.rickandmorty.ui.controllers.SnackBarController
 
+interface Binder<
+    EventFromScreen : EventScreen,
+    ViewStateFromScreen : ViewStateScreen,
+    ViewModel:BaseViewModel<EventFromScreen, ViewStateFromScreen>>{
+    fun bindEvents(event: EventFromScreen)
+}
+
 abstract class BaseScreen<
     EventFromScreen : EventScreen,
     ViewStateFromScreen : ViewStateScreen,
@@ -21,18 +28,18 @@ abstract class BaseScreen<
     override val screenKey: String = uniqueScreenKey
 ) : ComposeScreen(
     BaseScreen::class.simpleName.toString()
-) {
-    private val router get() = RickAndMortyWikiApp.INSTANCE.modo
-
-    abstract suspend fun bindEventsFromScreen(viewModel: ViewModel)
+), Binder<EventFromScreen,ViewStateFromScreen,ViewModel> {
+    val router get() = RickAndMortyWikiApp.INSTANCE.modo
 
     @Composable
     fun BindScreen(viewModel: ViewModel) {
         SetupStatusBar()
         val context = LocalContext.current
         LaunchedEffect(key1 = true) {
+            viewModel.eventFlow.collect{ bindEvents(it) }
+        }
+        LaunchedEffect(key1 = true){
             bindBaseEvent(context = context, viewModel = viewModel)
-            bindEventsFromScreen(viewModel = viewModel)
         }
     }
 

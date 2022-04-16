@@ -34,8 +34,6 @@ class RickAndMortyWikiApp:Application() {
         }
     }
 
-
-
     companion object {
         lateinit var INSTANCE: RickAndMortyWikiApp
             private set

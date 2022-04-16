@@ -6,6 +6,7 @@ import kotlinx.coroutines.launch
 import wiki.rickandmorty.core.base.BaseViewModel
 import wiki.rickandmorty.i_characters.use_cases.GetAllCharactersUseCase
 import wiki.rickandmorty.cf_network.util.DefaultPaginator
+import wiki.rickandmorty.data.CharacterDto
 
 class CharactersListViewModel(
     private val getAllCharactersUseCase: GetAllCharactersUseCase
@@ -54,9 +55,11 @@ class CharactersListViewModel(
         }
     }
 
-    fun onCharacterClick() {
+    fun onCharacterClick(character:CharacterDto) {
         viewModelScope.launch {
-            eventChanel.send(CharactersListScreen.ScreenEvent.NavigateToDetailCharacter("Test"))
+            eventChanel.send(CharactersListScreen.ScreenEvent.NavigateToDetailCharacter(
+                id = character.id
+            ))
         }
     }
 
