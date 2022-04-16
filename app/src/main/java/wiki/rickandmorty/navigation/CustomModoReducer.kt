@@ -1,6 +1,5 @@
 package wiki.rickandmorty.navigation
 
-import com.github.terrakok.modo.MultiScreen
 import com.github.terrakok.modo.NavigationAction
 import com.github.terrakok.modo.NavigationReducer
 import com.github.terrakok.modo.NavigationState

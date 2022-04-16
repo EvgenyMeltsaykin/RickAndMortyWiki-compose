@@ -1,17 +1,15 @@
 package wiki.rickandmorty.feature.characters.columnItem
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,13 +17,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import wiki.rickandmorty.data.CharacterDto
 import wiki.rickandmorty.ui.theme.montserratFamily
 
 @Preview
 @Composable
 fun CharacterItem(
+    modifier: Modifier = Modifier,
     character: CharacterDto = CharacterDto(
         id = 2,
         name = "Rick Sanchez",
@@ -36,13 +36,16 @@ fun CharacterItem(
     )
 ) {
     ConstraintLayout(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
         val (iPreview, bName) = createRefs()
-        Image(
-            painter = rememberAsyncImagePainter(character.imageUrl),
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(character.imageUrl)
+                .crossfade(true)
+                .build(),
             contentDescription = "Preview character",
             modifier = Modifier
                 .size(64.dp)

@@ -16,7 +16,7 @@ class GetAllCharactersUseCaseImpl(
 ):GetAllCharactersUseCase {
 
     override suspend fun invoke(page: Int): Result<Flow<CharactersResponse>> {
-        return Result.success(flowOf(apiService.getAllCharacters(page)))
+        return Result.success(flowOf( apiService.getAllCharacters(page)))
     }
 
 }

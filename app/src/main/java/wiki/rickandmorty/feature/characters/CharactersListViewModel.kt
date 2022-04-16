@@ -1,43 +1,38 @@
 package wiki.rickandmorty.feature.characters
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import wiki.rickandmorty.data.CharacterDto
+import wiki.rickandmorty.core.base.BaseViewModel
 import wiki.rickandmorty.i_characters.use_cases.GetAllCharactersUseCase
-import wiki.rickandmorty.util.DefaultPaginator
+import wiki.rickandmorty.cf_network.util.DefaultPaginator
 
 class CharactersListViewModel(
     private val getAllCharactersUseCase: GetAllCharactersUseCase
-) : ViewModel() {
+) : BaseViewModel<CharactersListScreen.ScreenEvent,
+    CharactersListScreen.CharactersListViewState
+    >(CharactersListScreen.CharactersListViewState()) {
 
-    private val _state = MutableStateFlow(CharactersListViewState())
-
-    val state: StateFlow<CharactersListViewState>
-        get() = _state
-
-    private val paginator = DefaultPaginator(
+    private val pagination = DefaultPaginator(
         initialKey = state.value.page,
-        onLoadUpdated = { isLoading->
+        onLoadUpdated = { isLoading ->
             _state.update {
                 it.copy(isLoading = isLoading)
             }
         },
-        onRequest = { nextPage->
+        onRequest = { nextPage ->
             getAllCharactersUseCase(nextPage)
         },
         getNextKey = {
             state.value.page + 1
         },
         onError = {
-
+            showSnackBar(it?.messageError)
         },
-        onSuccess = { items, newKey->
-            items.map { response->
+        onSuccess = { items, newKey ->
+            items.map { response ->
                 response.result.map { it.toCharacterDto() }
-            }.collect{ characters->
+            }.collect { characters ->
                 _state.update {
                     it.copy(
                         characters = it.characters + characters,
@@ -54,15 +49,15 @@ class CharactersListViewModel(
     }
 
     fun loadNextPage() {
-        viewModelScope.launch {
-            paginator.loadNextItems()
+        launchInternetRequest {
+            pagination.loadNextItems()
         }
     }
-}
 
-data class CharactersListViewState(
-    val characters: List<CharacterDto> = emptyList(),
-    val isLoading: Boolean = false,
-    val page: Int = 1,
-    val endReached: Boolean = false
-)
+    fun onCharacterClick() {
+        viewModelScope.launch {
+            eventChanel.send(CharactersListScreen.ScreenEvent.NavigateToDetailCharacter("Test"))
+        }
+    }
+
+}
