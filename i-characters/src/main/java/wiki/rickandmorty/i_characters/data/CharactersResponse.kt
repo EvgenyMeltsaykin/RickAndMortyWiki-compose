@@ -9,12 +9,7 @@ data class CharactersResponse(
     @SerializedName("info") val info: PaginationInfo
 )
 
-data class Origin (
-    @SerializedName("name") val name : String,
-    @SerializedName("url") val url : String
-)
-
-data class Location (
+data class SimpleResponse(
     @SerializedName("name") val name : String,
     @SerializedName("url") val url : String
 )
@@ -26,9 +21,9 @@ data class CharacterInfoResponse (
     @SerializedName("species") val species : String,
     @SerializedName("type") val type : String,
     @SerializedName("gender") val gender : String,
-    @SerializedName("origin") val origin : Origin,
-    @SerializedName("location") val location : Location,
-    @SerializedName("image") val image : String,
+    @SerializedName("origin") val origin : SimpleResponse,
+    @SerializedName("location") val location : SimpleResponse,
+    @SerializedName("image") val imageUrl : String,
     @SerializedName("episode") val episode : List<String>,
     @SerializedName("url") val url : String,
     @SerializedName("created") val created : String
@@ -39,7 +34,7 @@ data class CharacterInfoResponse (
         status = status,
         species = species,
         gender = gender,
-        imageUrl = image
+        imageUrl = imageUrl
     )
 }
 

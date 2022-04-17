@@ -4,8 +4,10 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import wiki.rickandmorty.cf_network.HttpClient
+import wiki.rickandmorty.i_characters.data.CharacterInfoResponse
 import wiki.rickandmorty.i_characters.data.CharactersResponse
 
 interface CharactersApiService {
@@ -14,6 +16,11 @@ interface CharactersApiService {
     suspend fun getAllCharacters(
         @Query("page") page:Int
     ): CharactersResponse
+
+    @GET("$CHARACTER/{id}")
+    suspend fun getCharacter(
+        @Path("id") id:Int
+    ): CharacterInfoResponse
 
     companion object {
         private const val CHARACTER = "character"

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Rick And Morty Wiki</string>
+    
+    <string name="detail_character_name">Name: %s</string>
+    <string name="detail_character_gender">Gender: %s</string>
+    <string name="detail_character_species">Species: %s</string>
+    <string name="detail_character_type">Type: %s</string>
+    <string name="detail_character_status">Status: %s</string>
+
 </resources>

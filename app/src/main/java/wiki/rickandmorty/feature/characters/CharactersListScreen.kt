@@ -81,7 +81,7 @@ class CharactersListScreen : BaseScreen<
                         modifier = Modifier
                             .clickable(onClick = { viewModel.onCharacterClick(character) })
                     )
-                    if (index < viewState.characters.lastIndex) {
+                    if (index < characters.lastIndex) {
                         Divider(
                             color = Color.LightGray,
                             thickness = 0.5f.dp,

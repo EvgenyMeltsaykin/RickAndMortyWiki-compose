@@ -11,3 +11,7 @@ val montserratFamily = FontFamily(
     Font(R.font.montserrat_regular, FontWeight.Normal),
     Font(R.font.montserrat_semi_bold, FontWeight.SemiBold),
 )
+
+val getSchwiftyFamily = FontFamily(
+    Font(R.font.get_schwifty, FontWeight.Normal),
+)

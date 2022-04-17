@@ -11,6 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import wiki.rickandmorty.data.CharacterDto
 import wiki.rickandmorty.ui.theme.montserratFamily
+import wiki.rickandmorty.ui_components.TextMontserratNormal
+import wiki.rickandmorty.ui_components.TextSchwiftyNormal
 
 @Preview
 @Composable
@@ -72,13 +75,11 @@ fun CharacterItem(
 
 @Composable
 fun NameText(modifier: Modifier, text: String) {
-    Text(
+    TextSchwiftyNormal(
+        textAlign = TextAlign.Center,
         modifier = modifier,
         text = text,
-        color = Color.Black,
         fontSize = 24.sp,
-        fontFamily = montserratFamily,
-        fontWeight = FontWeight.Normal,
         maxLines = 2,
         overflow = TextOverflow.Ellipsis
     )

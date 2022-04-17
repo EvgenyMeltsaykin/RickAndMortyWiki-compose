@@ -1,0 +1,60 @@
+{
+  ConstraintSets: {
+    start: {
+      image: {
+        width: 'spread',
+        height: 400,
+        start: ['parent','start',16],
+        top: ['parent','top',16],
+        end: ['parent', 'end',16]
+      },
+      character_name: {
+        width: 'spread',
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        top: ['image','bottom',16]
+      },
+      header: {
+        top: ['parent','top',16],
+        start: ['parent','start',16],
+        end: ['parent','end',16],
+        alpha: 0
+      }
+    },
+    end: {
+      image: {
+        height: 400,
+        top: ['parent','top',16],
+        end: ['parent','start'],
+        alpha: 0
+      },
+      character_name: {
+        end: ['parent', 'start'],
+        top: ['image','bottom',16],
+        alpha: 0
+      },
+      header: {
+        start: ['parent','start',16],
+        end: ['parent','end',16],
+        top: ['parent','top',16],
+        alpha: 1
+      }
+    }
+  },
+  Transitions: {
+    default: {
+      from: 'start',
+      to: 'end',
+      pathMotionArc: 'startHorizontal',
+      KeyFrames: {
+        KeyAttributes: [
+          {
+            target: ['header'],
+            frames: [0,70,100],
+            alpha: [0,0,1]
+          }
+        ]
+      }
+    }
+  }
+}
