@@ -38,13 +38,13 @@ class CharactersListScreen : BaseScreen<
     ) : ViewStateScreen
 
     sealed class ScreenEvent : EventScreen {
-        data class NavigateToDetailCharacter(val id: Int) : ScreenEvent()
+        data class NavigateToDetailCharacter(val character: CharacterDto) : ScreenEvent()
     }
 
     override fun bindEvents(event: ScreenEvent) {
         when (event) {
             is ScreenEvent.NavigateToDetailCharacter -> {
-                router.forward(Screens.DetailCharacter(event.id))
+                router.forward(Screens.DetailCharacter(event.character))
             }
         }
     }

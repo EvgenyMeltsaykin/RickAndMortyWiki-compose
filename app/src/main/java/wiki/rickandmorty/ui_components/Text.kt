@@ -1,62 +1,60 @@
 package wiki.rickandmorty.ui_components
 
-import androidx.compose.material.Text
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import wiki.rickandmorty.ui.theme.getSchwiftyFamily
-import wiki.rickandmorty.ui.theme.montserratFamily
 
 @Composable
-fun TextMontserratNormal(
-    text: String,
+fun IconTwoRowText(
     modifier: Modifier = Modifier,
-    color:Color = Color.Black,
-    fontSize: TextUnit = 14.sp,
-    overflow: TextOverflow = TextOverflow.Clip,
-    maxLines: Int = Int.MAX_VALUE,
+    title: String, subTitle: String,
     textAlign: TextAlign = TextAlign.Start,
-    onTextLayout: (TextLayoutResult) -> Unit = {}
+    @DrawableRes iconResourceId: Int? = null,
+    color: Color
 ) {
-    Text(
+    val columnWidthAlign = when (textAlign) {
+        TextAlign.End -> Alignment.End
+        TextAlign.Center -> Alignment.CenterHorizontally
+        else -> Alignment.Start
+    }
+    Row(
         modifier = modifier,
-        text = text,
-        fontFamily = montserratFamily,
-        fontWeight = FontWeight.Normal,
-        color = color,
-        fontSize = fontSize,
-        overflow = overflow,
-        maxLines = maxLines,
-        textAlign = textAlign,
-        onTextLayout = onTextLayout,
-    )
-}
-
-@Composable
-fun TextSchwiftyNormal(
-    text: String,
-    modifier: Modifier = Modifier,
-    color:Color = Color.Black,
-    fontSize: TextUnit = 14.sp,
-    overflow: TextOverflow = TextOverflow.Visible,
-    maxLines: Int = Int.MAX_VALUE,
-    textAlign: TextAlign = TextAlign.Start
-) {
-    Text(
-        modifier = modifier,
-        text = text,
-        fontFamily = getSchwiftyFamily,
-        fontWeight = FontWeight.Normal,
-        color = color,
-        fontSize = fontSize,
-        overflow = overflow,
-        maxLines = maxLines,
-        textAlign = textAlign
-    )
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        if (iconResourceId != null) {
+            Image(
+                modifier = Modifier.size(12.dp),
+                painter = painterResource(id = iconResourceId),
+                contentDescription = null
+            )
+        }
+        Column(
+            modifier = modifier.wrapContentWidth(columnWidthAlign),
+            horizontalAlignment = columnWidthAlign
+        ) {
+            TextMontserrat(
+                text = title,
+                fontSize = 18.sp,
+                textAlign = textAlign,
+                color = color,
+                fontWeight = FontWeight.SemiBold
+            )
+            TextMontserrat(
+                text = subTitle,
+                fontSize = 18.sp,
+                textAlign = textAlign,
+                color = color
+            )
+        }
+    }
 }

@@ -2,7 +2,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+        maven(url = "https://jitpack.io")
         maven(url = "https://dl.bintray.com/ekito/koin")
     }
     dependencies {
@@ -10,6 +10,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.6.10")
         classpath ("com.google.gms:google-services:4.3.10")
+        classpath ("com.google.firebase:firebase-crashlytics-gradle:2.8.1")
     }
 }
 

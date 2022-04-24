@@ -4,13 +4,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,22 +20,13 @@ import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import wiki.rickandmorty.data.CharacterDto
-import wiki.rickandmorty.ui.theme.montserratFamily
-import wiki.rickandmorty.ui_components.TextMontserratNormal
+import wiki.rickandmorty.data.LifeStatus
 import wiki.rickandmorty.ui_components.TextSchwiftyNormal
 
-@Preview
 @Composable
 fun CharacterItem(
     modifier: Modifier = Modifier,
-    character: CharacterDto = CharacterDto(
-        id = 2,
-        name = "Rick Sanchez",
-        status = "Alive",
-        species = "Human",
-        gender = "Male",
-        imageUrl = "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-    )
+    character: CharacterDto
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -50,6 +40,7 @@ fun CharacterItem(
                 .crossfade(true)
                 .build(),
             contentDescription = "Preview character",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(64.dp)
                 .clip(AbsoluteRoundedCornerShape(4.dp))
