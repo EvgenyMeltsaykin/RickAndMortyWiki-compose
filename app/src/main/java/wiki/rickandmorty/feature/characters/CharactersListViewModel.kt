@@ -57,9 +57,7 @@ class CharactersListViewModel(
 
     fun onCharacterClick(character:CharacterDto) {
         viewModelScope.launch {
-            eventChanel.send(CharactersListScreen.ScreenEvent.NavigateToDetailCharacter(
-                id = character.id
-            ))
+            eventChanel.send(CharactersListScreen.ScreenEvent.NavigateToDetailCharacter(character))
         }
     }
 

@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.github.terrakok.modo.android.compose.ComposeScreen
 import com.github.terrakok.modo.android.compose.uniqueScreenKey
@@ -44,10 +45,10 @@ abstract class BaseScreen<
     }
 
     @Composable
-    private fun SetupStatusBar() {
+    fun SetupStatusBar(color: Color =MaterialTheme.colors.background) {
         val systemUiController = rememberSystemUiController()
         systemUiController.setStatusBarColor(
-            color = MaterialTheme.colors.background
+            color = color
         )
     }
 

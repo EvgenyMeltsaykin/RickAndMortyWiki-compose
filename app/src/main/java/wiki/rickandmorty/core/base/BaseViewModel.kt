@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import wiki.rickandmorty.cf_network.NetworkException
 
-abstract class BaseViewModel<EventsFromScreen: EventScreen, ViewModelStateFromScreen: ViewStateScreen>(
-    private val initialViewState: ViewModelStateFromScreen
+abstract class BaseViewModel<EventsFromScreen: EventScreen, ViewStateFromScreen: ViewStateScreen>(
+    private val initialViewState: ViewStateFromScreen
 ) : ViewModel() {
     protected val eventChanel = Channel<EventsFromScreen>()
-    protected val _state = MutableStateFlow(initialViewState)
+    protected val _state:MutableStateFlow<ViewStateFromScreen> = MutableStateFlow(initialViewState)
     val eventFlow = eventChanel.receiveAsFlow()
-    val state: StateFlow<ViewModelStateFromScreen>
+    val state: StateFlow<ViewStateFromScreen>
         get() = _state
 
     private val baseEventChanel = Channel<BaseEventScreen>()

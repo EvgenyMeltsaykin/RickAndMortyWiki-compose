@@ -7,6 +7,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -87,6 +88,7 @@ dependencies {
     //for navigation based on FragmentManager
     implementation("com.github.terrakok:modo-render-android-compose:0.6.3")
     implementation("io.coil-kt:coil-compose:2.0.0-rc02")
+    implementation("io.coil-kt:coil-gif:2.0.0-rc02")
     implementation("io.insert-koin:koin-android:3.1.6")
    // implementation ("io.insert-koin:koin-android-ext:3.1.6")
     implementation ("io.insert-koin:koin-androidx-compose:3.1.6")
@@ -99,11 +101,13 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.0")
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.24.6-alpha")
     implementation(project(":i-characters"))
+    implementation(project(":i-episode"))
     implementation(project(":cf-network"))
     implementation(project(":cf-data"))
 
     implementation(platform("com.google.firebase:firebase-bom:29.3.1"))
 
+    implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
 
 }

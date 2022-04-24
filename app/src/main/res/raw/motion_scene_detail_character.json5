@@ -1,0 +1,195 @@
+{
+  ConstraintSets: {
+    start: {
+      text_color_change: {
+        custom: {
+          color: "#000000"
+        }
+      },
+      background: {
+        custom: {
+          color: "#FFFFFF"
+        }
+      },
+      image: {
+        width: 'spread',
+        height: 400,
+        start: ['parent','start',16],
+        top: ['parent','top',16],
+        end: ['parent', 'end',16]
+      },
+      character_name: {
+        width: 'spread',
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        top: ['image','bottom',16],
+        custom: {
+          color: "#000000"
+        }
+      },
+      header_divider: {
+        width: 'spread',
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        top: ['character_name','bottom',8],
+        alpha: 0,
+        custom: {
+          color: "#000000"
+        }
+      },
+      character_info: {
+        width: 'spread',
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        top: ['character_name','bottom',8],
+        alpha: 1,
+        custom: {
+          color: "#000000"
+        }
+      },
+      portal: {
+        width: 200,
+        height: 200,
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        bottom: ['parent','bottom',16],
+        alpha: 1
+      },
+      portal_close: {
+        height: 24,
+        width: 24,
+        alpha: 0,
+        end: ['parent', 'end',16],
+        top: ['parent','top',16]
+      },
+      character_full_info: {
+        width: 'spread',
+        start: ['portal','start'],
+        end: ['portal', 'end'],
+        top: ['character_info','bottom',8],
+        alpha: 0,
+        custom: {
+          episodeTextColor: "#FFFFFF",
+          episodeBackgroundColorBack: "#000000",
+          blurValue: 3
+        }
+      }
+    },
+    end: {
+      background: {
+        custom: {
+          color: "#3C3E44"
+        }
+      },
+      image: {
+        height: 80,
+        width: 80,
+        top: ['character_name','top'],
+        bottom:  ['character_name','bottom'],
+        start: ['parent','start',16],
+      },
+      character_name: {
+        width: 'spread',
+        top: ['parent','top',16],
+        end: ['portal_close', 'start',8],
+        start: ['image', 'end',16],
+        custom: {
+          color: "#FFFFFF"
+        }
+      },
+      header_divider: {
+        width: 'spread',
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        top: ['character_name','bottom',8],
+        custom: {
+          color: "#FFFFFF"
+        },
+        alpha: 1,
+      },
+      character_info: {
+        width: 'spread',
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        top: ['character_name','bottom',16],
+        custom: {
+          color: "#FFFFFF"
+        },
+        alpha: 1,
+      },
+      portal: {
+        width: 200,
+        height: 200,
+        start: ['parent','start',16],
+        end: ['parent', 'end',16],
+        bottom: ['parent','bottom',16],
+        alpha: 0
+      },
+      portal_close: {
+        height: 32,
+        width: 32,
+        alpha: 1,
+        end: ['parent', 'end',16],
+        top: ['parent','top',16]
+      },
+      character_full_info: {
+        width: 'spread',
+        height: 'spread',
+        start: ['parent','start'],
+        end: ['parent', 'end'],
+        top: ['character_info','bottom'],
+        bottom: ['parent','bottom'],
+        alpha: 1,
+        custom: {
+          episodeTextColor: "#000000",
+          episodeBackgroundColorBack: "#FFFFFF",
+          blurValue: 0
+        }
+      }
+    }
+  },
+  Transitions: {
+    default: {
+      from: 'start',
+      to: 'end',
+      pathMotionArc: 'startHorizontal',
+      KeyFrames: {
+        KeyAttributes: [
+          {
+            target: ['image'],
+            frames: [0,50,100],
+            scaleX: [1,0.7,1],
+            scaleY: [1,0.7,1],
+          },
+          {
+            target: ['character_full_info'],
+            frames: [0,50,100],
+            alpha: [0,0.8,1],
+          },
+          {
+            target: ['character_name'],
+            frames: [0,50,100],
+            scaleX: [1,0.8,1],
+            scaleY: [1,0.8,1],
+          },
+          {
+            target: ['portal'],
+            frames: [0,80,100],
+            scaleX: [1,0.7,0],
+            scaleY: [1,0.7,0],
+            rotationZ: [0,70,0],
+            rotationX: [0,89,90],
+            alpha: [1,0.5,0]
+          },
+          {
+            target: ['portal_close'],
+            frames: [0,80,100],
+            alpha: [0,0,1],
+            scaleX: [0,0,1],
+            scaleY: [0,0,1]
+          }
+        ]
+      }
+    }
+  }
+}
