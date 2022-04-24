@@ -2,7 +2,7 @@ package wiki.rickandmorty.navigation
 
 import wiki.rickandmorty.data.CharacterDto
 import wiki.rickandmorty.feature.characters.CharactersListScreen
-import wiki.rickandmorty.feature.detail_character.DetailCharacterScreen
+import wiki.rickandmorty.f_detail_character.DetailCharacterScreen
 
 object Screens {
 

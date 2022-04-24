@@ -10,16 +10,16 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewModelScope
 import com.github.terrakok.modo.*
-import wiki.rickandmorty.ui.theme.RickAndMortyWikiTheme
+import wiki.rickandmorty.cf_ui.theme.RickAndMortyWikiTheme
 import com.github.terrakok.modo.android.compose.ComposeRender
 import com.github.terrakok.modo.android.compose.init
 import com.github.terrakok.modo.android.compose.saveState
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import wiki.rickandmorty.core.base.EventScreen
-import wiki.rickandmorty.core.base.ViewStateScreen
+import wiki.rickandmorty.cf_core.controllers.SnackBarController
+import wiki.rickandmorty.cf_core.base.EventScreen
+import wiki.rickandmorty.cf_core.base.ViewStateScreen
 import wiki.rickandmorty.navigation.Screens
-import wiki.rickandmorty.ui.controllers.SnackBarController
 
 object MainViewEvent: EventScreen
 object MainViewState: ViewStateScreen

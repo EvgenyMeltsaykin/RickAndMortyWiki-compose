@@ -15,7 +15,7 @@ import wiki.rickandmorty.di.network.mainNetworkModule
 import wiki.rickandmorty.navigation.CustomModoReducer
 
 class RickAndMortyWikiApp:Application() {
-    val modo = Modo(LogReducer(CustomModoReducer(AppReducer(this))))
+    val modo:Modo = Modo(LogReducer(CustomModoReducer(AppReducer(this))))
 
     override fun onCreate() {
         INSTANCE = this

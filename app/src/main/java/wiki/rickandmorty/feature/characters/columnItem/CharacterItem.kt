@@ -7,21 +7,18 @@ import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import wiki.rickandmorty.cf_ui.TextSchwiftyNormal
 import wiki.rickandmorty.data.CharacterDto
-import wiki.rickandmorty.data.LifeStatus
-import wiki.rickandmorty.ui_components.TextSchwiftyNormal
 
 @Composable
 fun CharacterItem(
