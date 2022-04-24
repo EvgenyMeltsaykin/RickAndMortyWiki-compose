@@ -3,7 +3,7 @@ package wiki.rickandmorty.feature.characters
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import wiki.rickandmorty.core.base.BaseViewModel
+import wiki.rickandmorty.cf_core.base.BaseViewModel
 import wiki.rickandmorty.i_characters.use_cases.GetAllCharactersUseCase
 import wiki.rickandmorty.cf_network.util.DefaultPaginator
 import wiki.rickandmorty.data.CharacterDto
