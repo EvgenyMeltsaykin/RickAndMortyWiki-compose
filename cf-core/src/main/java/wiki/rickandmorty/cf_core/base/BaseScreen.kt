@@ -12,6 +12,7 @@ import com.github.terrakok.modo.android.compose.ComposeScreen
 import com.github.terrakok.modo.android.compose.uniqueScreenKey
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import org.koin.androidx.compose.inject
+import wiki.rickandmorty.cf_core.ScreenRouter
 import wiki.rickandmorty.cf_core.controllers.SnackBarController
 import wiki.rickandmorty.cf_core.extensions.getActivity
 
@@ -19,7 +20,7 @@ interface Binder<
     EventFromScreen : EventScreen,
     ViewStateFromScreen : ViewStateScreen,
     ViewModel:BaseViewModel<EventFromScreen, ViewStateFromScreen>>{
-    fun bindEvents(event: EventFromScreen, router:Modo)
+    fun bindEvents(event: EventFromScreen, router:Modo, screens:ScreenRouter)
 }
 
 abstract class BaseScreen<
@@ -35,10 +36,11 @@ abstract class BaseScreen<
     @Composable
     fun BindScreen(viewModel: ViewModel) {
         val router:Modo by inject()
+        val screens:ScreenRouter by inject()
         SetupStatusBar()
         val context = LocalContext.current
         LaunchedEffect(key1 = true) {
-            viewModel.eventFlow.collect{ bindEvents(it,router) }
+            viewModel.eventFlow.collect{ bindEvents(it,router,screens) }
         }
         LaunchedEffect(key1 = true){
             bindBaseEvent(context = context, viewModel = viewModel)

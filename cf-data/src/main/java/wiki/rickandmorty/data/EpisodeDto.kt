@@ -1,5 +1,9 @@
 package wiki.rickandmorty.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class EpisodeDto(
     val id: Int,
     val name: String,
@@ -7,4 +11,4 @@ data class EpisodeDto(
     val shortEpisode: String,
     val charactersIds: List<String>,
     val created: String,
-)
+) : Parcelable

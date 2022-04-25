@@ -14,6 +14,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.AbsoluteRoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -40,9 +41,11 @@ import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.github.terrakok.modo.Modo
 import com.github.terrakok.modo.back
+import com.github.terrakok.modo.forward
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
+import wiki.rickandmorty.cf_core.ScreenRouter
 import wiki.rickandmorty.cf_core.base.BaseScreen
 import wiki.rickandmorty.cf_core.base.EventScreen
 import wiki.rickandmorty.cf_core.base.ViewStateScreen
@@ -64,6 +67,7 @@ class DetailCharacterScreen(
 
     sealed class ScreenEvent : EventScreen {
         object OnNavigateBack : ScreenEvent()
+        data class NavigateToEpisode(val episode: EpisodeDto):ScreenEvent()
     }
 
     data class DetailCharacterViewState(
@@ -77,7 +81,7 @@ class DetailCharacterScreen(
         val firstSeenInEpisodeName: String = "",
         val episodes: List<EpisodeDto> = emptyList(),
         val isAutoPlay: Boolean = false,
-        val isShowEpisodes: Boolean = false
+        val isShowEpisodes: Boolean = false,
     ) : ViewStateScreen
 
     @Composable
@@ -88,9 +92,10 @@ class DetailCharacterScreen(
         DetailCharacterContent(viewModel)
     }
 
-    override fun bindEvents(event: ScreenEvent, router:Modo) {
+    override fun bindEvents(event: ScreenEvent, router:Modo,screens: ScreenRouter) {
         when (event) {
             is ScreenEvent.OnNavigateBack -> router.back()
+            is ScreenEvent.NavigateToEpisode -> router.forward(screens.Episode(event.episode))
         }
     }
 
@@ -107,7 +112,7 @@ class DetailCharacterScreen(
         }
         val componentHeight by remember { mutableStateOf(context.resources.displayMetrics.heightPixels.toFloat()) }
         val swipeableState = rememberSwipeableState("Bottom")
-        val anchors = mapOf(0f to "Bottom", componentHeight to "Top")
+        val anchors = remember{mapOf(0f to "Bottom", componentHeight to "Top")}
         val mProgress = swipeableState.offset.value / componentHeight
         viewModel.setProgressMotion(mProgress)
 
@@ -204,6 +209,7 @@ class DetailCharacterScreen(
             )
             CharacterFullInfoContent(
                 viewState = viewState,
+                viewModel = viewModel,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 16.dp)
@@ -265,6 +271,7 @@ class DetailCharacterScreen(
 @Composable
 fun CharacterFullInfoContent(
     viewState: DetailCharacterScreen.DetailCharacterViewState,
+    viewModel:DetailCharacterViewModel,
     modifier: Modifier = Modifier,
     blurValue: Dp,
     changedTextColor: Color,
@@ -317,7 +324,9 @@ fun CharacterFullInfoContent(
             text = stringResource(id = R.string.detail_character_episodes_title).uppercase(),
             color = changedTextColor
         )
+        val listState = rememberLazyListState()
         LazyColumn(
+            state = listState,
             modifier = Modifier
                 .fillMaxHeight(),
             contentPadding = PaddingValues(start = 8.dp, end = 8.dp, bottom = 8.dp)
@@ -340,7 +349,9 @@ fun CharacterFullInfoContent(
                             .clip(AbsoluteRoundedCornerShape(8.dp))
                             .animateItemPlacement(
                                 animationSpec = tween(1000)
-                            ),
+                            ).clickable {
+                                viewModel.onEpisodeClick(episode)
+                            },
                         textColor = episodeTextColor,
                         backgroundColor = episodeBackgroundItemColor,
                         episode = episode

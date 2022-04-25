@@ -103,6 +103,7 @@ dependencies {
     implementation(project(":i-characters"))
     implementation(project(":i-episode"))
     implementation(project(":f-detail-character"))
+    implementation(project(":f-episode"))
     implementation(project(":cf-network"))
     implementation(project(":cf-ui"))
     implementation(project(":cf-data"))

@@ -12,6 +12,7 @@ import wiki.rickandmorty.di.features.charactersListModule
 import wiki.rickandmorty.di.network.charactersNetworkModule
 import wiki.rickandmorty.di.network.episodesNetworkModule
 import wiki.rickandmorty.di.network.mainNetworkModule
+import wiki.rickandmorty.f_episode.di.episodeModule
 import wiki.rickandmorty.navigation.CustomModoReducer
 
 class RickAndMortyWikiApp:Application() {
@@ -31,7 +32,8 @@ class RickAndMortyWikiApp:Application() {
                 mainNetworkModule,
                 charactersNetworkModule,
                 charactersListModule,
-                episodesNetworkModule
+                episodesNetworkModule,
+                episodeModule
             )
         }
     }

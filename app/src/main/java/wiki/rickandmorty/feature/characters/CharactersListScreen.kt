@@ -17,7 +17,7 @@ import com.github.terrakok.modo.Modo
 import com.github.terrakok.modo.forward
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.getViewModel
-import org.koin.androidx.compose.inject
+import wiki.rickandmorty.cf_core.ScreenRouter
 import wiki.rickandmorty.cf_core.base.BaseScreen
 import wiki.rickandmorty.cf_core.base.EventScreen
 import wiki.rickandmorty.cf_core.base.ViewStateScreen
@@ -27,7 +27,7 @@ import wiki.rickandmorty.feature.characters.columnItem.CharacterItem
 import wiki.rickandmorty.navigation.Screens
 
 @Parcelize
-class CharactersListScreen() : BaseScreen<
+class CharactersListScreen : BaseScreen<
     CharactersListScreen.ScreenEvent,
     CharactersListScreen.CharactersListViewState,
     CharactersListViewModel>() {
@@ -42,10 +42,10 @@ class CharactersListScreen() : BaseScreen<
         data class NavigateToDetailCharacter(val character: CharacterDto) : ScreenEvent()
     }
 
-    override fun bindEvents(event: ScreenEvent, router:Modo) {
+    override fun bindEvents(event: ScreenEvent, router:Modo,screens: ScreenRouter) {
         when (event) {
             is ScreenEvent.NavigateToDetailCharacter -> {
-                router.forward(Screens.DetailCharacter(event.character))
+                router.forward(screens.DetailCharacter(event.character))
             }
         }
     }

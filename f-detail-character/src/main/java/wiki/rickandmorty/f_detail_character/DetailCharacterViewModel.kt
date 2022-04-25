@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import wiki.rickandmorty.cf_core.base.BaseViewModel
 import wiki.rickandmorty.data.CharacterDto
+import wiki.rickandmorty.data.EpisodeDto
 import wiki.rickandmorty.i_episode.use_cases.GetEpisodesByIdsUseCase
 
 class DetailCharacterViewModel(
@@ -77,6 +78,12 @@ class DetailCharacterViewModel(
     fun onPortalCloseClick() {
         viewModelScope.launch {
             eventChanel.send(DetailCharacterScreen.ScreenEvent.OnNavigateBack)
+        }
+    }
+
+    fun onEpisodeClick(episode: EpisodeDto) {
+        viewModelScope.launch {
+            eventChanel.send(DetailCharacterScreen.ScreenEvent.NavigateToEpisode(episode = episode))
         }
     }
 
